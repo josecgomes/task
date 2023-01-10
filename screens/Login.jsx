@@ -59,6 +59,7 @@ const Login = () => {
 
   return (
     <View style={styles.wrapper}>
+      <Text>Login</Text>
       <TextInput
         label='Email Address'
         placeholder='example@gmail.com'

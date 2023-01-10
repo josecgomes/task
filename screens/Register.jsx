@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import DropDownPicker from 'react-native-dropdown-picker';
 import { Button, Dimensions, TextInput, View, StyleSheet, Alert, ActivityIndicator, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { firebase } from '@react-native-firebase/database';
@@ -15,14 +16,21 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigator = useNavigation();
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Admin', value: 'admin'},
+    {label: 'User', value: 'user'}
+  ]);
+
   const saveUser = (user) => {
     const { email, uid, displayName } = user;
-    dispatch(addUser({ email, uid, displayName, role: 'admin' }));
+    dispatch(addUser({ email, uid, displayName, role: value }));
   }
 
   const createUserInFirebaseDatabase = (user) => {
     const { email, uid, displayName } = user;
-    let userToSave = { email, uid, displayName, role: 'admin' };
+    let userToSave = { email, uid, displayName, role: value };
     firebase.app().database('https://task-b455e-default-rtdb.firebaseio.com/')
       .ref(`/users/${uid}`)
       .set(userToSave).then(() => {
@@ -59,6 +67,14 @@ const Register = () => {
         onChangeText={confirmpassword => setConfirmPassword(confirmpassword)}
         secureTextEntry
       />
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+      />
       {
         isLoading ?
           <ActivityIndicator
@@ -67,11 +83,10 @@ const Register = () => {
             style={{marginBottom: 80}}
           /> :
           <Button
-            onPress={() => loginUser(email, password)}
+            onPress={() => createUserInFirebaseDatabase(email, password, value)}
             title={'Register'}
           />
       }
-
 {
         isLoading ?
           <ActivityIndicator
