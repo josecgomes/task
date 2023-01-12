@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,12 +26,15 @@ const Register = () => {
 
   const saveUser = (user) => {
     const { email, uid, displayName } = user;
-    dispatch(addUser({ email, uid, displayName, role: value }));
+    dispatch(addUser({ email, name, uid, displayName, role: value }));
   }
 
   const createUserInFirebaseDatabase = (user) => {
-    const { email, uid, displayName } = user;
-    let userToSave = { email, uid, displayName, role: value };
+    const {  uid, displayName = name } = user;
+    console.log(uid);
+    console.log(displayName);
+    //const { email, uid, displayName } = user;
+    let userToSave = { email, name, uid, displayName, role: value };
     firebase.app().database('https://task-b455e-default-rtdb.firebaseio.com/')
       .ref(`/users/${uid}`)
       .set(userToSave).then(() => {
@@ -53,6 +57,14 @@ const Register = () => {
         autoCapitalize={'none'}
       />
 
+      <TextInput
+        label='Name'
+        placeholder='Enter name'
+        value={name}
+        onChangeText={name => setName(name)}
+        autoCapitalize={'none'}
+      />
+      
       <TextInput
         label='Password'
         placeholder='enter password'
@@ -83,7 +95,7 @@ const Register = () => {
             style={{marginBottom: 80}}
           /> :
           <Button
-            onPress={() => createUserInFirebaseDatabase(email, password, value)}
+            onPress={() => createUserInFirebaseDatabase(email, name, password, value)}
             title={'Register'}
           />
       }
