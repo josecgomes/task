@@ -6,16 +6,17 @@ import DatePicker from 'react-native-date-picker';
 
 const TaskModal = ({modalVisible, setModalVisible}) => {
   const [description, setDescription] = React.useState('');
-  const [date, setDate] = React.useState(new Date())
+  const [data, setDate] = React.useState(new Date())
 
   const handleSave = () => {
     firebase.app().database('https://task-b455e-default-rtdb.firebaseio.com/').ref('/tasks')
     .push()
     .set({
       description: description,
-      date: date.toDateString(),
+      date: data.toString(),
     }).then(() => {
       console.log('Added task!')
+      console.log(data.toString().slice(0,-12))
       Alert.alert('Task created successfully!');
       setModalVisible(false);
     }).catch((error) => console.log(error));
@@ -40,7 +41,7 @@ const TaskModal = ({modalVisible, setModalVisible}) => {
                     value={description}
                     onChangeText={description => setDescription(description)}
                     autoCapitalize={'none'} />
-        <DatePicker date={date} mode="time" onDateChange={setDate} />
+        <DatePicker date={data} /*mode="time"*/ onDateChange={setDate} />
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}

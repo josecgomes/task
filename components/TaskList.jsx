@@ -5,7 +5,7 @@ import { View, StyleSheet, Text} from 'react-native'
 const TaskList = ({description, date}) => {
   return (
     <View style={styles.container}>
-      <Text>Description : {description}</Text>
+      <Text style={styles.text}>Description : {description}</Text>
       <Text>date: {date}</Text>
     </View>
   )
@@ -22,7 +22,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 10
   },
+  text: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5 
+  }
 });
 
 export default TaskList
