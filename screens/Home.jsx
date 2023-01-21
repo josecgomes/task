@@ -29,6 +29,7 @@ const Home = () => {
       const loadedTasks = [];
       for (let key in data) {
         loadedTasks.push(data[key]);
+        console.log(tasks);
       }
       setTasks(loadedTasks)
     });
@@ -87,8 +88,11 @@ const styles = StyleSheet.create({
     marginBottom:15,
   },
   buttonContainer: {
-    flexDirection: 'column',
-    marginTop: 30,
+    flexDirection: 'row',
+    marginTop: 15,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   createTaskButton: {
     margin: 20,
@@ -98,12 +102,7 @@ const styles = StyleSheet.create({
     height: 10,
   },
   logout_button: {
-    height: 100,
-    backgroundColor: '#FF9800',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0
+    height: 100
   },
   FlatList: {
     marginTop: 10,

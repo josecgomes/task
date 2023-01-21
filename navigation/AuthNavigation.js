@@ -9,9 +9,7 @@ const AuthNavigation = props => {
 
   return (
     <Tab.Navigator initialRouteName="Home">
-      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Account" component={Details} />
     </Tab.Navigator>
   );
 };

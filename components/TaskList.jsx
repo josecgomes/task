@@ -1,14 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Text} from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, Alert, Image} from 'react-native'
+import Home from '../screens/Home'
 
 const TaskList = ({description, date}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Description : {description}</Text>
-      <Text>date: {date}</Text>
+      <Text>Date: {date}</Text>
+      <TouchableOpacity onPress={Apaga}>
+        <Image 
+        source={require('../images/delete.png')} 
+        style={{
+          height: 25, 
+          width: 25, 
+          resizeMode: 'center',
+          marginTop:5,
+          marginBottom:5
+          }} />
+      </TouchableOpacity>
     </View>
   )
+}
+
+const Apaga = () => {
+  Alert.alert("Ainda por fazer");
+  console.log(this.description, this.date)
 }
 
 TaskList.propTypes = {
@@ -29,6 +46,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 5 
+  },
+  Image:{
+    flex: 1,
+    resizeMode: 'center',
+    marginTop: 100,
+    marginBottom: 100
   }
 });
 
