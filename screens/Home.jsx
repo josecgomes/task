@@ -28,8 +28,7 @@ const Home = () => {
       const data = snapshot.val();
       const loadedTasks = [];
       for (let key in data) {
-        loadedTasks.push(data[key]);
-        console.log(tasks);
+        loadedTasks.push(formatTaskData(data[key]));
       }
       setTasks(loadedTasks)
     });
@@ -39,6 +38,12 @@ const Home = () => {
       tasksRef.off('value', onLoadingListener);
     };
   }, []);
+
+  const formatTaskData = (data) => {
+    let task = data;
+    task.id = key;
+    return task;
+  };
 
   //Logout user
   const logoutUser = () => {
